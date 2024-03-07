@@ -1,5 +1,5 @@
-import express from 'express';
-import {getAllBanners, getBannerById, createBanner, updateBanner, deleteBanner} from '../controllers/banner.controller.js';
+const express = require('express');
+const { getAllBanners, getBannerById, createBanner, updateBanner, deleteBanner } = require('../controllers/banner.controller.js');
 
 const router = express.Router();
 
@@ -9,4 +9,4 @@ router.post('/', createBanner);
 router.put('/:id', updateBanner);
 router.delete('/:id', deleteBanner);
 
-export default router
+module.exports = router

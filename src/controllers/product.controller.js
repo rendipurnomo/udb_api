@@ -1,10 +1,10 @@
-import { PrismaClient } from '@prisma/client';
-import { unlinkSync } from 'fs';
-import { extname } from 'path';
+const { PrismaClient } = require('@prisma/client');
+const fs = require('fs');
+const path = require('path');
 
 const prisma = new PrismaClient();
 
-export async function getAllProducts(req, res) {
+exports.getAllProducts =async(req, res)=> {
   try {
     const product = await prisma.products.findMany({});
 
@@ -21,7 +21,7 @@ export async function getAllProducts(req, res) {
   }
 }
 
-export async function getProductById(req, res) {
+exports.getProductById=async(req, res)=> {
   try {
     const product = await prisma.products.findFirst({
       where: {
@@ -36,7 +36,7 @@ export async function getProductById(req, res) {
   }
 }
 
-export async function createProduct(req, res) {
+exports.createProduct=async(req, res)=> {
   if (!req.files || Object.keys(req.files).length === 0 || !req.files.file) {
     return res.status(400).json({ message: 'Tidak ada file yang diunggah!' });
   }
@@ -76,7 +76,7 @@ export async function createProduct(req, res) {
   });
 }
 
-export async function updateProduct(req, res) {
+exports.updateProduct=async(req, res) => {
   const product = await prisma.products.findFirst({
     where: {
       id: req.params.id,
@@ -126,7 +126,7 @@ export async function updateProduct(req, res) {
   }
 }
 
-export async function deleteProduct(req, res) {
+exports.deleteProduct=async(req, res)=> {
   const product = await prisma.products.findFirst({
     where: {
       id: req.params.id,

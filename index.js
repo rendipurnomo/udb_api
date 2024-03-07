@@ -1,16 +1,16 @@
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import fileUpload from 'express-fileupload';
-import session from 'express-session';
-import cookieParser from 'cookie-parser';
-import dotenv from 'dotenv';
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const dotenv = require('dotenv');
 
-import userRoute from './src/routes/user.route.js';
-import productRoute from './src/routes/product.route.js';
-import transactionRoute from './src/routes/transaction.route.js';
-import bannerRoute from './src/routes/banner.route.js';
-import authRoute from './src/routes/auth.route.js';
+const userRoute = require('./src/routes/user.route.js');
+const productRoute = require('./src/routes/product.route.js');
+const transactionRoute = require('./src/routes/transaction.route.js');
+const bannerRoute = require('./src/routes/banner.route.js');
+const authRoute = require('./src/routes/auth.route.js');
 
 dotenv.config();
 

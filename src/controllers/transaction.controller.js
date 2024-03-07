@@ -1,9 +1,9 @@
-import { PrismaClient } from '@prisma/client';
+const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
 
-export const getAllTransactions = async (req, res) => {
+exports.getAllTransactions = async (req, res) => {
   try {
     const transactions = await prisma.transactions.findMany();
     if(transactions.length === 0) {
@@ -15,7 +15,7 @@ export const getAllTransactions = async (req, res) => {
   }
 }
 
-export const getTransactionById = async (req, res) => {
+exports.getTransactionById = async (req, res) => {
   try {
     const {id} = req.params;
     const transaction = await prisma.transactions.findUnique({where: {id}});
@@ -28,7 +28,7 @@ export const getTransactionById = async (req, res) => {
   }
 }
 
-export const createTransaction = async (req, res) => {
+exports.createTransaction = async (req, res) => {
   try {
     const transaction = await prisma.transactions.create({
       data: req.body
@@ -39,7 +39,7 @@ export const createTransaction = async (req, res) => {
   }
 }
 
-export const updateTransaction = async (req, res) => {
+exports.updateTransaction = async (req, res) => {
   const transaction = await prisma.transactions.findFirst({
     where: {
       id: req.params.id
@@ -63,7 +63,7 @@ export const updateTransaction = async (req, res) => {
   }
 }
 
-export const deleteTransaction = async (req, res) => {
+exports.deleteTransaction = async (req, res) => {
   const transaction = await prisma.transactions.findFirst({
     where: {
       id: req.params.id

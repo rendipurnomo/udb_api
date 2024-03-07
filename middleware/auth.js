@@ -1,8 +1,8 @@
-import {PrismaClient} from '@prisma/client';
+const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
-export const SignIn = async (req, res) => {
+exports.SignIn = async (req, res) => {
   const auth = req.body.authResult
   await fetch("https://api.minepi.com/v2/me", {
     headers: new Headers({
@@ -36,7 +36,7 @@ export const SignIn = async (req, res) => {
 }
 
 
-export const SignOut = async (req, res) => {
+exports.SignOut = async (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       return res.status(500).json({ message: "Failed to sign out" });

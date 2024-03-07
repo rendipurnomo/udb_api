@@ -1,9 +1,9 @@
-import {PrismaClient} from '@prisma/client';
+const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
 
-export const getAllUsers = async (req, res) => {
+exports.getAllUsers = async (req, res) => {
   try {
     const users = await prisma.users.findMany();
     if(users.length === 0) {
@@ -15,7 +15,7 @@ export const getAllUsers = async (req, res) => {
   }
 }
 
-export const getUserById = async (req, res) => {
+exports.getUserById = async (req, res) => {
   try {
     const {id} = req.params;
     const user = await prisma.users.findUnique({where: {id}});
@@ -28,7 +28,7 @@ export const getUserById = async (req, res) => {
   }
 }
 
-export const createUser = async (req, res) => {
+exports.createUser = async (req, res) => {
   try {
     const user = await prisma.users.create({
       data: req.body
@@ -39,7 +39,7 @@ export const createUser = async (req, res) => {
   }
 }
 
-export const updateUser = async (req, res) => {
+exports.updateUser = async (req, res) => {
   const user = await prisma.users.findFirst({
     where: {
       id: req.params.id
@@ -96,7 +96,7 @@ export const updateUser = async (req, res) => {
     }
 }
 
-export const deleteUser = async (req, res) => {
+exports.deleteUser = async (req, res) => {
   const user = await prisma.users.findFirst({
     where: {
       id: req.params.id

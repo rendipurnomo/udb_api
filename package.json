@@ -2,10 +2,9 @@
   "name": "server",
   "version": "1.0.0",
   "description": "udb server",
-  "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "author": "rendi",
   "license": "ISC",

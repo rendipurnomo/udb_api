@@ -1,8 +1,8 @@
-import { PrismaClient } from '@prisma/client';
+const {PrismaClient} = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
-export const getAllBanners = async (req, res) => {
+exports.getAllBanners = async (req, res) => {
   try {
     const banner = await prisma.banners.findMany();
     if(banner.length === 0) {
@@ -14,7 +14,7 @@ export const getAllBanners = async (req, res) => {
   }
 }
 
-export const getBannerById = async (req, res) => {
+exports.getBannerById = async (req, res) => {
   try {
     const {id} = req.params;
     const banner = await prisma.banners.findUnique({where: {id}});
@@ -27,7 +27,7 @@ export const getBannerById = async (req, res) => {
   }
 }
 
-export const createBanner = async (req, res) => {
+exports.createBanner = async (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0 || !req.files.file) {
     return res.status(400).json({ message: 'Tidak ada file yang diunggah!' });
   }
@@ -67,7 +67,7 @@ export const createBanner = async (req, res) => {
   });
 }
 
-export const updateBanner = async (req, res) => {
+exports.updateBanner = async (req, res) => {
   const banner = await prisma.banners.findFirst({
     where: {
       id: req.params.id,
@@ -122,7 +122,7 @@ export const updateBanner = async (req, res) => {
   }
 }
 
-export const deleteBanner = async (req, res) => {
+exports.deleteBanner = async (req, res) => {
   const banner = await prisma.banners.findFirst({
     where: {
       id: req.params.id,
