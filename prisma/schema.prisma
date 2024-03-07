@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Categories{
+  FOOD
+  FASHION
+  ACCESORIES
+  CRAFT
+  FURNITURE
+  OTOMOTIF
+  HERBAL
+  ELECTRONIC
+  DIGITAL
+}
+
+model Users {
+  id String @id @default(cuid())
+  username String
+  uid String @unique
+  img String?
+  imgUrl  String? @map("img_url")
+  roles String? @default("member")
+  email String? @unique
+  phone String?
+  address String?
+  accessToken String? @map("access_token")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  Transactions Transactions[]
+
+  @@map("user")
+}
+
+model Products {
+  id  String @id @default(cuid())
+  name  String
+  brand String
+  description String @db.Text()
+  category Categories
+  price String
+  stock String
+  img String
+  imgUrl  String @map("img_url")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  Transactions Transactions[]
+  
+  @@map("product")
+}
+
+model Transactions {
+  id String @id @default(cuid())
+  totalPrice  String @map("total_price")
+  userId String @map("user_id")
+  ProductId String
+  pesananDiterima Boolean @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+  updateAt DateTime @default(now()) @map("updated_at")
+
+  Users Users @relation(fields: [userId], references: [id])
+  Products Products @relation(fields: [ProductId], references: [id])
+
+  @@map("transaction")
+}
+
+model Banners {
+  id String @id @default(cuid())
+  name  String
+  img String
+  imgUrl  String @map("img_url")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  @@map("banner")
+}
