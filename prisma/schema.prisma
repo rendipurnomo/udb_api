@@ -66,6 +66,7 @@ model Transactions {
   id String @id @default(cuid())
   totalPrice  String @map("total_price")
   userId String @map("user_id")
+  alamatPengiriman String @map("alamat_pengiriman")
   ProductId String
   pesananDiterima Boolean @default(false)
   createdAt DateTime @default(now()) @map("created_at")
