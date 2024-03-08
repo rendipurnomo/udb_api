@@ -32,9 +32,10 @@ exports.getUserById = async (req, res) => {
 };
 
 exports.createUser = async (req, res) => {
+  const auth = req.body.authResult;
   try {
     let currentUser = await prisma.users.findFirst({
-      where: { uid: authResult.user.uid },
+      where: { uid: auth.user.uid },
     });
     if (currentUser) {
       await prisma.users.update(
